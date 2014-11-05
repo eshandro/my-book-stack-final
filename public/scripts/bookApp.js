@@ -422,6 +422,7 @@ bookApp.controller('SignupController', ['$scope', function($scope) {
 	$scope.newBookLover.userName = '';
 	$scope.newBookLover.email = '';
 	$scope.newBookLover.password = '';
+	$scope.newBookLover.confirmPassword = '';
 
 	// This reverts the current input field to the view value if 
 	// esc key is pressed
@@ -434,6 +435,31 @@ bookApp.controller('SignupController', ['$scope', function($scope) {
 			$scope.signupForm[currentField].$rollbackViewValue();
 		}
 	}*/
+}]);
+
+// Custom directive for input field matching, eg password confirm
+bookApp.directive('inputMatch', [function () {
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function (scope, elem, attrs, ctrl) {
+			var checkMatch = function () {
+				// console.log('checkMatch called in inputMatch directive');
+				// Get value of passwordConfirm input
+				var inputConfirm = scope.$eval(attrs.ngModel);
+				// console.log('inputConfirm= ', inputConfirm);
+				// Get value of passwordConfirm
+				var inputOriginal = scope.$eval(attrs.inputMatch);
+				// console.log('inputOriginal: ', inputOriginal);
+				return inputConfirm === inputOriginal;				
+			};
+			scope.$watch(checkMatch, function(n) {
+				// Set form control to valid if both passwords 
+				// are the same, else invalid
+				ctrl.$setValidity('isMatch', n);
+			});
+		}
+	};
 }]);
 
 // Custom directeve to check if a new user's userName is unique

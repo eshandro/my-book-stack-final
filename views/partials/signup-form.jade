@@ -34,6 +34,23 @@ div(ng-controller="SignupController")
 					span.help-block(ng-show="signupForm.password.$dirty && signupForm.password.$error.required") A password is required
 					span.glyphicon.glyphicon-warning-sign.form-control-feedback(ng-show="signupForm.password.$dirty && signupForm.password.$invalid")
 					span.glyphicon.glyphicon-ok.form-control-feedback(ng-show="signupForm.password.$dirty && signupForm.password.$valid")
+		//Password confirm section
+		.form-group(ng-class="{ 'has-error' : signupForm.confirmPassword.$dirty && signupForm.confirmPassword.$invalid, 'has-success' : signupForm.confirmPassword.$dirty && signupForm.confirmPassword.$valid, 'has-feedback' : signupForm.confirmPassword.$dirty }")
+			label.control-label.col-sm-5(for='confirmPassword') Please confirm your password.
+			.col-sm-7
+				//input-match must = the ng-model of the input field you are matching against
+				//Removal of updateOn:'blur' here fixes tab issue where the disabled button is skipped
+				input.form-control.new-confirm-password(ng-model='newBookLover.confirmPassword', input-match='newBookLover.password', type='password', name='confirmPassword', placeholder='Confirm password', required)
+				//Spacer for validation error messages
+				.form-spacer
+					span.help-block(ng-show='signupForm.confirmPassword.$dirty && signupForm.confirmPassword.$error.required') Please confirm your password.
+					span.help-block(ng-show='signupForm.confirmPassword.$dirty && signupForm.confirmPassword.$error.isMatch') Passwords do not match.
+					//Graphic indications of valid/invalid
+					span.form-control-feedback(ng-show='signupForm.confirmPassword.$dirty && signupForm.confirmPassword.$invalid')
+						span.glyphicon.glyphicon-warning-sign
+					span.form-control-feedback(ng-show='signupForm.confirmPassword.$dirty && signupForm.confirmPassword.$valid')
+						span.glyphicon.glyphicon-ok
+
 		.form-group
 			.col-sm-offset-5.col-sm-7
 				input.btn.btn-success.new-user-button(type="submit" value="Sign up" ng-disabled="signupForm.$invalid")

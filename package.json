@@ -1,0 +1,28 @@
+{
+  "name": "MyBookStack",
+  "version": "0.0.1",
+  "description": "Organize and share your reading life",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "bcrypt": "^0.8.0",
+    "body-parser": "1.x",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.3.2",
+    "express": "4.x",
+    "express-session": "^1.7.4",
+    "jade": "^1.5.0",
+    "mongoose": "^3.8.14",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "sanitizer": "^0.1.2",
+    "underscore": "^1.6.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

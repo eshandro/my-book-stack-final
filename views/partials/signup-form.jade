@@ -1,0 +1,40 @@
+br
+div(ng-controller="SignupController")
+	form.form-horizontal.signup-form(name='signupForm' action="/signup" method="post" role="form" novalidate)
+		.form-group(ng-class="{ 'has-error' : signupForm.userName.$invalid && signupForm.userName.$dirty, 'has-success' : signupForm.userName.$valid && signupForm.userName.$dirty, 'has-feedback' : signupForm.userName.$dirty }")
+			label.control-label.col-sm-5(for="userName") Enter a user name
+			.col-sm-7
+				input.form-control.new-user-name(ng-model="newBookLover.userName" ng-model-options="{ updateOn: 'blur' }" type="text" name="userName" placeholder="Enter a user name" ng-minlength="3" ng-maxlength="16" unique-Username required autofocus)
+				.form-spacer
+					span.help-block(ng-show="signupForm.userName.$dirty && signupForm.userName.$error.isTaken") Sorry, that user name is already taken. 
+					span.help-block(ng-show="signupForm.userName.$dirty && signupForm.userName.$error.invalidChars") User name may not contain any non-url-safe characters.
+					span.help-block(ng-show="signupForm.userName.$dirty && signupForm.userName.$error.minlength") User name must be at least 3 characters.
+					span.help-block(ng-show="signupForm.userName.$dirty && signupForm.userName.$error.maxlength") User name cannot be longer than 16 characters.
+					span.help-block(ng-show="signupForm.userName.$dirty && signupForm.userName.$error.required") A user name is required.
+					span.glyphicon.glyphicon-warning-sign.form-control-feedback(ng-show="signupForm.userName.$dirty && signupForm.userName.$invalid")
+					span.glyphicon.glyphicon-ok.form-control-feedback(ng-show="signupForm.userName.$dirty && signupForm.userName.$valid")
+			span.relative-wrapper
+					i.glyphicon.glyphicon-refresh.rotating.is-none
+		.form-group(ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty, 'has-success' : signupForm.email.$valid && signupForm.email.$dirty, 'has-feedback' : signupForm.email.$dirty }")
+			label.control-label.col-sm-5(for="email") Enter an email address
+			.col-sm-7
+				input.form-control.new-email-signin(ng-model="newBookLover.email" ng-model-options="{ updateOn: 'blur'}" type="email" name="email" placeholder="Enter an email" required)
+				.form-spacer
+					span.help-block(ng-show='signupForm.email.$dirty && signupForm.email.$error.email') Email entered is not valid
+					span.help-block(ng-show="signupForm.email.$dirty && signupForm.email.$error.required") An email address is required.					
+					span.glyphicon.glyphicon-warning-sign.form-control-feedback(ng-show="signupForm.email.$dirty && signupForm.email.$invalid")
+					span.glyphicon.glyphicon-ok.form-control-feedback(ng-show="signupForm.email.$dirty && signupForm.email.$valid")
+		.form-group(ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$dirty, 'has-success' : signupForm.password.$valid && signupForm.password.$dirty, 'has-feedback' : signupForm.password.$dirty }")
+			label.control-label.col-sm-5(for="password") Enter a password
+			.col-sm-7
+				input.form-control.new-password(ng-model="newBookLover.password" ng-model-options="{ updateOn: 'blur'}" type="password" name="password" placeholder="Enter a password" ng-minlength="6" ng-maxlength="40" required)
+				.form-spacer
+					span.help-block(ng-show="signupForm.password.$dirty && signupForm.password.$error.minlength") Password must be at least 6 characters.
+					span.help-block(ng-show="signupForm.password.$dirty && signupForm.password.$error.maxlength") Password entered is too long.
+					span.help-block(ng-show="signupForm.password.$dirty && signupForm.password.$error.required") A password is required
+					span.glyphicon.glyphicon-warning-sign.form-control-feedback(ng-show="signupForm.password.$dirty && signupForm.password.$invalid")
+					span.glyphicon.glyphicon-ok.form-control-feedback(ng-show="signupForm.password.$dirty && signupForm.password.$valid")
+		.form-group
+			.col-sm-offset-5.col-sm-7
+				input.btn.btn-success.new-user-button(type="submit" value="Sign up" ng-disabled="signupForm.$invalid")
+

@@ -1,0 +1,17 @@
+div(ng-controller="NewPostController")
+	.new-post-container
+		.col-sm-12
+			h2.posts-header Add a post
+		form.form-horizontal.add-post-form(action="/posts/addpost" method="post" role="form")
+			.form-group
+				label.control-label.col-sm-3(for="postSubject") Post Subject
+				.col-sm-9
+					input.new-post-subject(placeholder="Post subject" type="text" name="postSubject" ng-model="post.subject" autofocus required)
+			.form-group
+				label.control-label.col-sm-3(for="postBody") Share Your Thoughts
+				.col-sm-9
+					textarea.new-post(placeholder='Add a post' name="postBody" ng-model="post.body" required)
+			.form-group
+				.col-sm-offset-3.col-sm-9
+					button.button.cancel-post(ng-click="post.reset($event)") Reset
+					button.button.save-post(ng-click="post.addPost($event)") Save

@@ -1,0 +1,95 @@
+extends layout
+
+block content
+	nav.navbar.navbar-inverse.navbar-static-top(role='navigation')
+		.container
+			h1.navbar-text.page-title My Book Stack
+			h4.navbar-text.tagline Organize and share your reading life
+			form(action="/logout", method="post")
+				button.btn.btn-danger.navbar-btn.navbar-right.logout-button(type='submit') Logout
+			div(ng-controller="OpenModal")
+				button.btn.btn-primary.navbar-btn.navbar-right.library-button(ng-click="open('library-popup')" type='button') Your Library
+	
+	.container.my-container
+		if user
+			h4.welcome Welcome back, #{user.userName} !
+		.row
+			.col-md-5
+				#recent-stack.stack(ng-controller="RecentStackController")
+					span.book.vertical-book.recentStackList(ng-repeat="book in recentStack.booksList" ng-style="{'border-color': '{{book.color}}' }")
+						p.vertical-text(ng-bind-html="book.title")
+				.shelf.read
+				.shelf-edge
+				h3.stack-label Recently Read Stack
+			.col-md-5.col-md-offset-2
+				#current-stack.stack(ng-controller="CurrentStackController") 
+					span.book.vertical-book.currentStackList(ng-repeat="book in currentStack.booksList" ng-style="{'border-color': '{{book.color}}' }")
+						p.vertical-text(ng-bind-html="book.title")
+				.shelf.current
+				.shelf-edge
+				h3.stack-label Currently Reading Stack
+	.container.my-container
+		.row.add-top-space
+			.col-md-6
+				div(ng-controller="PostsDisplayController")
+					.posts-container
+						h2.posts-header Share your thoughts:
+						div(ng-controller="OpenModal")
+							button.button.add-post(ng-click="open('new-post-form')") Add a Post
+						.posts(ng-include='\'/partials/posts-display.jade\'')
+			.col-md-5.col-md-offset-1
+				div(ng-controller="ShowAddBookController")
+					.add-book-container
+						button.button.add-book.animate-show-button(ng-click="formStatus.formOpen = true" ng-hide="formStatus.formOpen") Add a Book
+					div(ng-controller="AddBookController")
+						form.form-horizontal.add-book-form.animate-show(ng-show="formStatus.formOpen" role='form')
+							.form-group
+								label.control-label(for='book-title') Title
+								input#new-book-title.form-control(ng-model="book.title" type='text', placeholder='Book Title', required='required')
+							.form-group
+								label.control-label(for='author') Author
+								input#new-author.form-control(ng-model="book.author" type='text', placeholder='Author\'s Name')
+							.form-group
+								.radio
+									label Add a book to your reading soon stack
+										input#book-status-1(ng-model="book.stack" type='radio', name='book-status', value='future-read', required='required')
+								.radio
+									label Add a book to your currently reading stack
+										input#book-status-2(ng-model="book.stack" type='radio', name='book-status', value='current-read')
+								.radio
+									label Add a book to your recently read stack
+										input#book-status-3(ng-model="book.stack" type='radio', name='book-status', value='recent-read')
+							button.button.cancel(ng-click="cancel($event)") Cancel
+							button.button.shelf-it(ng-click="submit($event)") Shelf it!
+				#future-stack.stack(ng-controller="FutureStackController" )
+					ul.future-stack-holder
+						li(ng-repeat="book in futureStack.booksList | reverse")
+							span.book.horizontal-book.futureStackList(ng-style="{'border-color': '{{book.color}}' }" ng-bind-html="book.title")
+				.shelf.future
+				.shelf-edge
+				.table-legs
+					.drawer &mdash;
+						h3.stack-label.future-label Reading Soon
+				div(ng-controller="TrashController")
+					img#trash.trash-can(src='/images/trash-can.png')
+					span#archived.archive-holder(ng-controller="ArchiveController")
+						.archive-triangle
+						.archive-square Archive
+	//- Load currentUser's info
+	if user
+		div(ng-controller='CurrentUserController')
+			input(type="hidden" ng-model="currentUser" value="#{user._id}")
+block scripts
+	// - The following is used to create a reference to the currentUser for use 
+	// - by anything on a render('index'), note that user is being passed in the 
+	// - controllers/index.js file. The user object will need to be parsed more 
+	// - than here because user is the whole user object. 
+	if user
+		script.
+			var currentUser = !{JSON.stringify(user)}
+			//- console.log('currentUser: ', currentUser)
+			var url = !{JSON.stringify(url)}
+			//- console.log('url: ', url)
+	script(src="/scripts/jquery.ui.touch-punch.min.js")
+	script(src="/scripts/bookApp.min.js")
+	

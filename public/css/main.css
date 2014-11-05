@@ -1,0 +1,488 @@
+/* General page styling */
+.my-container {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.my-inner {
+	padding: 10px;
+}
+
+body {
+	background-color: #ECECEA;
+}
+
+.is-hidden {
+	visibility: hidden;
+}
+
+.is-none {
+	display: none;
+}
+
+.relative-wrapper {
+	position: relative;
+}
+
+.center-text {
+	text-align: center;
+}
+/* Fix for angular-ui-bootstrap and empty href attributes for link tags*/
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+/* ----------------------------------------------------------*/
+/* Trash can */
+.trash-can {
+	position: relative;
+	bottom: 105px;
+	left: 18px;
+	height: 110px;
+	width: 110px;
+
+}
+
+/* ----------------------------------------------------------*/
+/* Archive styling*/
+.archive-holder {
+	position: relative;
+	bottom: 195px;
+	left: 270px;
+}
+
+.archive-square {
+	position: relative;
+	bottom: 0px;
+	/*display: inline-block;*/
+	width: 80px;
+	height: 45px;
+	background-color: rgb(53, 126, 189);
+	border-top: 1px solid gray;
+	color: white;
+	text-align: center;
+	font-size: 1.2em;
+}
+
+.archive-triangle {
+	position: relative;
+	bottom: 0px;
+	right: 15px;
+	/*display: inline-block;*/
+	width: 0;
+	height: 0;
+	border-left: 55px solid transparent;
+	border-right: 55px solid transparent;
+	border-bottom: 40px solid rgb(53, 126, 189);
+}
+
+/* ----------------------------------------------------------------*/
+/* Nav bar styling*/
+.page-title {
+	font-family: 'Special Elite', Helvetica, Verdana, sans-serif;
+	margin-bottom: 5px;
+}
+
+.tagline {
+	clear: both;
+	margin-top: 5px;
+	font-family: 'Special Elite', Helvetica, Verdana, sans-serif;
+}
+
+.navbar-inverse {
+	background-color: #585858;
+}
+
+.navbar {
+	margin: 10px 20px 0px;
+}
+
+.navbar-form {
+	margin-bottom: 5px;
+}
+.welcome {
+	font-family: 'Special Elite', Helvetica, Verdana, sans-serif;
+	color: #367f93;
+}
+
+/* ------------------------------------------------------------------*/
+/* Books */
+.book {
+	display: inline-block;
+	padding: 2px;
+	border-width: 5px;
+	border-top-style: ridge;
+	border-left-style: ridge;
+	border-right-style: ridge;
+	border-bottom-style: ridge;
+	border-color: red;
+	overflow: hidden;
+	font-family: 'Vollkorn', serif;	
+}
+
+.book:hover { cursor: pointer; 
+	cursor: hand; 
+}
+
+.future-stack-holder {
+	list-style-type: none;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin-bottom: 0;
+}
+
+#recent-stack:first-child, #current-stack:first-child {
+	margin-left: 35px;
+}
+
+.horizontal-book {
+	width: 150px;
+	height: 40px;
+	vertical-align: middle;
+	position: relative;
+	margin-top: 1px;
+	left: 60px;
+}
+
+.vertical-book {
+	width: 40px;
+	height: 150px;
+	position: relative;
+	bottom: -30px;
+	margin-right: .3em;
+/*	left: 35px;*/
+}
+
+.vertical-text {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	transform: rotate(90deg);
+	-webkit-transform-origin: bottom left;
+	-mox-transform-origin: bottom left;
+	-0-transform-origin: bottom left;
+	transform-origin: bottom left;
+	/*display: block;*/
+	white-space: nowrap;
+	margin: 0;	
+}
+
+/* Adds some styling to items while being dragged */
+.ui-draggable-dragging {
+	-webkit-box-shadow: 4px 7px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    4px 7px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         4px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+/* -------------------------------------------------------*/
+/* Buttons styling */
+.button {
+	border-radius: .4em;
+	background-color: #367f93;
+	color: white;
+	text-align: center;
+	-webkit-box-shadow: 4px 4px 4px rgba(64,64,64,.3);
+	box-shadow: 4px 4px 4px rgba(64,64,64,.3);
+	border: none;
+}
+.sign-in-popup {
+	margin: 8px 10px;
+}
+
+.library-button {
+	margin-right: 30px;
+	background-color: #367f93;
+	}
+
+.add-book-container {
+	text-align: right;
+}
+
+.add-post {
+	margin-bottom: 1em;
+}
+.add-book {
+	height: 2.5em;
+	width: 7.5em;
+	font-size: 1.4em;
+}
+
+.add-comment {
+	height: 2em;
+	width: 10em;
+	margin: 10px 0;
+}
+
+.shelf-it {
+	height: 2em;
+	width: 5.25em;
+	font-size: 1em;
+	margin-top: 1em;
+}
+
+.cancel {
+	margin-right: 2em;
+	height: 2em;
+	width: 5.25em;
+	font-size: 1em;	
+	margin-top: 1em;
+}
+
+
+/* ------------------------------------------------------------*/
+/* Shelves and table */
+.shelf {
+	width: 400px;
+	position: relative;
+	z-index:1;
+	border-bottom: 25px solid #b76c33;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+}
+.shelf-edge {
+	width: 400px;
+	height: 25px;
+	z-index: 10;
+	position: relative;
+	background: #965828;
+	-webkit-box-shadow: 4px 7px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    4px 7px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         4px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.table-legs {
+	width: 400px;
+	height: 225px;
+	border-left: 25px solid #965828;
+	border-right: 25px solid #965828;
+}
+
+.drawer {
+	width: 350px;
+	height: 100px;
+	border: 2px solid #7c4921;
+	background-color: #b76c33;
+	text-align: center;
+	font-size: 6em;
+	line-height: 100px;
+	-webkit-box-shadow: 0px 7px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 7px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+/* Set properties for book holder divs */
+#future-stack, #current-stack, #recent-stack {
+	position: relative;
+	height: 180px;
+}
+
+.stack-label {
+	width: 400px;
+	text-align: center;
+	color: #367f93;
+	margin-top: 8px;
+	font-family: 'Special Elite', Helvetica, Verdana, sans-serif;
+
+}
+.future-label {
+	width: 350px;
+}
+.add-top-space {
+	margin-top: 1em;
+}
+
+/* --------------------------------------------------------------*/
+/* modal styling */
+.signup-form, .signin-form, .new-post-container {
+	padding: 1em 1.5em;
+}
+
+/* ---------------------------------------------------------------*/
+/* Library modal styling */
+.library-reading {
+	color: rgb(71, 164, 71);
+}
+.library-reading-soon {
+	color: rgb(54, 127, 147);
+}
+.library-read-recently {
+	color: rgb(51, 51, 51);
+}
+.library-read-past {
+	color: #999;
+}
+.panel-heading {
+	font-family: 'Special Elite', Helvetica, Verdana, sans-serif;	
+}
+.panel-body {
+	padding: 5px 15px;
+}
+
+/*---------------------------------------------------------------------*/
+/* Comments/posts section */
+.posts-container {
+	background-color: rgba(88,88,88,.3);
+	width: 500px;
+	min-height: 300px;
+	border-radius: 20px;
+	padding: 10px 30px 10px 20px;
+}
+
+.media-list {
+	margin-top: 20px;
+}
+
+
+.post-reply-button {
+	text-align: right;
+}
+
+.post-username {
+	font-family: 'Special Elite', Helvetica, Verdana, sans-serif;
+}
+
+.post-timestamp {
+	text-align: right;
+	font-style: italic;
+	color: rgb(88,88,88);
+}
+
+.post-body {
+	text-indent: .5em;
+	margin-bottom: 0;
+}
+
+
+.new-post-subject {
+	display: block;
+	width: 25em;
+	border-radius: 5px;
+	padding: .5em;
+	margin-bottom: 1em;
+}
+
+.new-post {
+	display: block;
+	width: 25em;
+	height: 12em;
+	border-radius: 5px;
+	padding: 8px;
+	margin-bottom: 10px;
+}
+
+.posts-header {
+	font-family: 'Special Elite', Helvetica, Verdana, sans-serif;
+}
+
+.cancel-post {
+	width: 4.5em;
+	margin-right: 1.25em;
+}
+
+.cancel-reply {
+	margin-right: 1em;
+}
+
+.save-post {
+	width: 4em;
+}
+
+.reply-header {
+	font-family: 'Special Elite', Helvetica, Verdana, sans-serif;
+	display: inline-block;
+	/*margin: 1em 0;*/
+}
+
+.reply-subject {
+	margin-left: .4em;
+	font-size: 1.2em;
+}
+
+.reply-body {
+	margin-left: 2em;
+	margin-bottom: 0;
+}
+.reply-username {
+	margin-left: 1.5em;
+	font-family: 'Special Elite', Helvetica, Verdana, sans-serif;
+}
+
+.reply-username-form {
+	width: 25em;
+	border-radius: 5px;
+	padding: .5em;
+}
+
+.reply-timestamp {
+	text-align: right;
+	font-style: italic;
+	color: rgb(88,88,88);
+}
+
+/* ------------------------------------------------------------------*/
+/* Angular animations */
+.add-book-form {
+	position: relative;
+	left: 134%;
+}
+
+.animate-show-button.ng-hide-remove {
+	-webkit-transition: opacity 1s linear;
+	transition: opacity 1s linear;
+	opacity: 1;	
+}
+.animate-show-button.ng-hide {
+	opacity: 0;
+}
+.animate-show-button.ng-hide-remove {
+	display: inline-block!important;
+}
+
+
+.animate-show {
+	-webkit-transition: 1s linear all;
+	transition: 1s linear all;
+	left: 0;
+	opacity: 1;
+}
+
+.animate-show.ng-hide-add, 
+.animate-show.ng-hide-remove. {
+  display: inline-block!important;
+}
+
+.animate-show.ng-hide {
+  left: 134%;
+  opacity: 0;
+}
+
+
+/* ------------------------------------------------------------------*/
+/* Angular form validation etc. styling*/
+
+/* Processing spinner */
+@-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.rotating {
+  /*float: right;*/
+  position: absolute;
+  top: .5em;
+  right: 1.5em;
+  -webkit-animation: rotating 1s linear infinite;
+  animation: rotating 1s linear infinite;
+}
+
+.form-spacer {
+	min-height: 1.6em;
+	padding-left: .2em;
+}
+/* Because built in space for error messages with the .form-spacer class above*/
+.has-error {
+	margin-bottom: 0;
+}

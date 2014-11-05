@@ -1,0 +1,68 @@
+extends layout
+
+block content
+	nav.navbar.navbar-inverse.navbar-static-top(role='navigation')
+		.container
+			h1.navbar-text.page-title My Book Stack
+			h4.navbar-text.tagline Organize and share your reading life
+			div(ng-controller="OpenModal")
+				button.btn.btn-success.navbar-btn.navbar-right.sign-in-popup(ng-click="open('signin-form')") Sign in
+				button.btn.btn-success.navbar-btn.navbar-right.new-user-popup(ng-click="open('signup-form')") Sign up
+	.container
+		if error
+			h3.text-danger= error
+		if message
+			h3.text-info= message	
+
+	.container.my-container
+		.row
+			.col-md-5
+				.shelf.read
+				.shelf-edge
+				h3.stack-label Recently Read Stack
+			.col-md-5.col-md-offset-2
+				.shelf.current
+				.shelf-edge
+				h3.stack-label Currently Reading Stack
+	.container.my-container
+		.row.add-top-space
+			.col-md-6
+				.posts
+					h2.posts-header Share your thoughts:
+					button.button.add-post Add a post
+					ul.media-list
+			.col-md-5.col-md-offset-1
+				.add-book-container
+					button.button.add-book Add a Book
+				form.form-horizontal.add-book-form.is-none(role='form')
+					.form-group
+						label.control-label(for='book-title') Title
+						input#new-book-title.form-control(type='text', placeholder='Book Title', required='required')
+					.form-group
+						label.control-label(for='author') Author
+						input#new-author.form-control(type='text', placeholder='Author\'s Name')
+					.form-group
+						.radio
+							label Add a book to your to-read stack
+								input#book-status-1(type='radio', name='book-status', value='to-read', required='required')
+						.radio
+							label Add a book to your currently reading stack
+								input#book-status-2(type='radio', name='book-status', value='current-read')
+						.radio
+							label Add a book to your recently read stack
+								input#book-status-3(type='radio', name='book-status', value='recent-read')
+					button.button.cancel Cancel
+					button.button.shelf-it Shelf it!
+				.shelf.bedside
+				.shelf-edge
+				.table-legs
+					.drawer &mdash;
+						h3.stack-label.bedside-label Reading Soon Stack
+				div
+					img.trash-can(src='/images/trash-can.png')
+					span.archive-holder
+						.archive-triangle
+						.archive-square Archive
+block scripts
+	script(src="/scripts/bookApp.min.js")
+

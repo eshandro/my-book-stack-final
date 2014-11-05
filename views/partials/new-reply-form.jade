@@ -1,0 +1,18 @@
+div(ng-controller="NewReplyController")
+	.new-reply-container
+		.col-sm-12
+			h2.reply-header Reply to post about:
+			span.reply-subject {{post.subject}}
+		form.form-horizontal.add-post-form(action="/posts/addreply" method="post" role="form")
+			.form-group
+				label.control-label.col-sm-4(for="userName") Enter your user name
+				.col-sm-8
+					input.form-control.reply-username-form(ng-model="newReply.userName" type="text" name="userName" autofocus required)
+			.form-group
+				label.control-label.col-sm-4(for="replyBody") Add your reply
+				.col-sm-8
+					textarea.new-post(placeholder='Add a reply' name="replyBody" ng-model="newReply.body" required)
+			.form-group
+				.col-sm-offset-4.col-sm-8
+					button.button.cancel-reply(ng-click="newReply.reset($event)") Reset
+					button.button.save-reply(ng-click="newReply.addReply($event)") Save

@@ -1,0 +1,22 @@
+br
+div(ng-controller="SigninController")
+	form.form-horizontal.signin-form(name='signinForm' action='/login', method='post', role='form')
+		.form-group(ng-class="{ 'has-error' : signinForm.email.$invalid && signinForm.email.$dirty, 'has-feedback' : signinForm.email.$dirty }")
+			label.control-label.col-sm-5(for="email") Enter your email address
+			.col-sm-7
+				input.form-control.email-signin(ng-model="bookLover.email", ng-model-options="{ updateOn: 'blur' }", type='email', placeholder='Enter your email', name='email' required autofocus)
+				.form-spacer
+					span.help-block(ng-show='signinForm.email.$dirty && signinForm.email.$error.email') Email entered is not a valid email address.
+					span.help-block(ng-show="signinForm.email.$dirty && signinForm.email.$error.required") Oops! No email address entered.
+					span.glyphicon.glyphicon-warning-sign.form-control-feedback(ng-show="signinForm.email.$dirty && signinForm.email.$invalid")
+
+		.form-group(ng-class="{ 'has-error' : signinForm.password.$invalid && signinForm.password.$dirty, 'has-feedback' : signinForm.password.$dirty }")
+			label.control-label.col-sm-5(for="password") Enter your password
+			.col-sm-7
+				input.form-control.password(ng-model="bookLover.password", type='password', name='password', placeholder='Password', required)
+				.form-spacer
+					span.help-block(ng-show='signinForm.password.$dirty && signinForm.password.$error.required') Oops! No password entered.
+					span.glyphicon.glyphicon-warning-sign.form-control-feedback(ng-show='signinForm.password.$dirty && signinForm.password.$invalid')
+		.form-group
+			.col-sm-offset-5.col-sm-7
+				input.btn.btn-success.navbar-btn.sign-in-button(type='submit', value='Sign in', ng-disabled="signinForm.$invalid")

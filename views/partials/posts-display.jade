@@ -1,0 +1,13 @@
+div(ng-repeat="post in postsDisplay.allPosts")
+	span.post-username {{post.userName}}: 
+	span.post-subject(ng-bind-html="post.subject")
+	p.post-body(ng-bind-html="post.body")
+	p.post-timestamp posted - {{post.timestamp|date:"MMMM d, yyyy h:mm a"}}
+	div.reply(ng-repeat="reply in post.replies")
+		span.reply-username(ng-bind-html="reply.replyUserName") -
+		p.reply-body(ng-bind-html="reply.body")
+		p.reply-timestamp posted - {{reply.timestamp|date:"MMMM d, yyyy h:mm a"}}
+
+	div(ng-controller="OpenModal")
+		button.button.post-reply-button(ng-click="open('new-reply-form', post)") Reply
+	hr.post-divider

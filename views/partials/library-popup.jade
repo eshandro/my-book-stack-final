@@ -1,0 +1,19 @@
+div.panel.panel-default.library-list(ng-controller="LibraryController")
+	div.panel-heading
+		h3.panel-title {{library.userName}}'s Library
+	div.panel-body
+		p Here are all the books in your library.
+	table.table.table-striped
+		tr
+			th #
+			th Title
+			th Author
+			th Read?
+		tr(ng-repeat="book in library.booksList")
+			td {{$index+1}}
+			td {{book.title}}
+			td {{book.author}}
+			td.library-reading(ng-if="book.stack== 'current-read'") Reading
+			td.library-reading-soon(ng-if="book.stack == 'future-read'") Reading Soon
+			td.library-read-recently(ng-if="book.stack == 'recent-read'") Read Recently
+			td.library-read-past(ng-if="book.stack == 'archived'") Read

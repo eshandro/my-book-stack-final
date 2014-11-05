@@ -35,19 +35,19 @@ function CurrentUserObject () {
 			return item.sortNumber;
 		});
 		this.currentUserBooks = sortedList;
-	}
+	};
 
 	this.filterByStack = function(booksList, stack) {
 		var filteredList = _.filter(booksList, function(book) {
-			return book.stack === stack
-		})
+			return book.stack === stack;
+		});
 		return filteredList;
 	};
 
 	this.currentStackList = this.filterByStack(this.currentUserBooks, 'current-read');
 	this.recentStackList = this.filterByStack(this.currentUserBooks, 'recent-read');
 	this.futureStackList = this.filterByStack(this.currentUserBooks, 'future-read');
-};	
+}
 bookApp.service('currentUserServices', [ '$http', CurrentUserObject ]);
 
 // --------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ function BooksObject ($http) {
 	this.getAllUserBooks = function(userId, callback) {
 		$http.post('/books/getall', {'id': userId})
 		.success(function(data, status, headers, config) {
-			console.log('getAllUserBooks success data: ', data)
+			console.log('getAllUserBooks success data: ', data);
 			callback(null, data);
 		})
 		.error(function(data,status, headers, config) {
@@ -71,7 +71,7 @@ function BooksObject ($http) {
 		})
 		.error(function(data, status, headers, config) {
 			callback(data, {});
-		})
+		});
 	};
 
 	this.addBook = function(book, callback) {
@@ -81,11 +81,11 @@ function BooksObject ($http) {
 									'color': book.color,
 									})
 		.success(function(data, status, headers, config) {
-			console.log('addBook success data: ', data)
+			console.log('addBook success data: ', data);
 			if (callback) callback(null, data);
 		})
 		.error(function(data, status, headers, config) {
-		})
+		});
 	};
 
 	this.updateBook = function(title, updateKey, updateValue, callback) {
@@ -98,24 +98,24 @@ function BooksObject ($http) {
 			if (callback) callback(null, data);
 		})
 		.error(function(data, status, headers, config) {
-			if (callback) callback(data, status)	
-		})
+			if (callback) callback(data, status);
+		});
 	};
 
 	this.deleteBook = function(title, callback){
 		$http.post('/books/deletebook', { 'title': title })
 		.success(function(data, status, headers, config) {
-			if (callback) callback(data, status)
+			if (callback) callback(data, status);
 			console.log('deleteBook a success');
 		})
 		.error(function(data, status, headers, config) {
-			console.log('deleteBook causes error')
-			if (callback) callback(data, status)
-		})
+			console.log('deleteBook causes error');
+			if (callback) callback(data, status);
+		});
 	};
 
 	this.setBookColor = function() {
-		console.log('setBookColor called')
+		console.log('setBookColor called');
 		var randomColor = _.random(1,4);
 		switch(randomColor) {
 			case 1:
@@ -135,7 +135,7 @@ function BooksObject ($http) {
 		}
 		return randomColor;
 	};
-};
+}
 bookApp.service('bookServices', ['$http', BooksObject]);
 
 // --------------------------------------------------------------------------------------
@@ -149,11 +149,11 @@ function PostObject ($http) {
 		$http.post('/posts/getposts', {author: authorId})
 			.success(function(data, status, headers, config) {
 
-				console.log('getPost http data success')
-				callback(null, data)
+				console.log('getPost http data success');
+				callback(null, data);
 			})
 			.error(function(data, status, headers, config) {
-			})		
+			});		
 	};
 
 	// Adds a new post to db and returns it to the page
@@ -207,24 +207,27 @@ function DragDropObject(currentUserServices, bookServices) {
 		var updateKey = 'stack';
 		var bookTitle = '';
 
+		console.log('newStack ', newStack);
 		// Set newStack based on it's id and set updateValue based on newStack
 		if (newStack === 'recent-stack') {
 			newStack = 'recentStackList';
 			updateValue = 'recent-read';
 		}
-		if (newStack === 'current-stack') {
+		else if (newStack === 'current-stack') {
 			newStack = 'currentStackList';
 			updateValue = 'current-read';
 		}
-		if (newStack === 'future-stack') {
+		else if (newStack === 'future-stack') {
 			newStack = 'futureStackList';
 			updateValue = 'future-read';
 		}
+/*		console.log('before else ', updateValue);
+		console.log('before else newStack ', newStack);*/
 		// Not a stack so must be trash or archive
-		else {
+		else if (updateValue === '') {
 			updateValue = dropElemId;
 		}
-
+		console.log('updateValue ', updateValue);
 		// If droppedBookElem is dropped in same stack it is already in, end func
 		if (droppedBookElem.hasClass(newStack)) {
 			// This fixes issue with cuursor staying as 'selected' after a drop
@@ -236,7 +239,7 @@ function DragDropObject(currentUserServices, bookServices) {
 			oldStack = 'recentStackList';
 		}
 		if (droppedBookElem.hasClass('currentStackList')) {
-			oldStack = 'currentStackList'
+			oldStack = 'currentStackList';
 		}
 		if (droppedBookElem.hasClass('futureStackList')) {
 			oldStack = 'futureStackList';
@@ -263,15 +266,15 @@ function DragDropObject(currentUserServices, bookServices) {
 
 			// Remove trashed book from it's stack
 			var index = null;
-			console.log('before splice: ', currentUserServices[oldStack])
+			console.log('before splice: ', currentUserServices[oldStack]);
 			for (var i = 0; i < currentUserServices[oldStack].length; i++) {
 				if(currentUserServices[oldStack][i].title === bookTitle) {
 					index = i;
 					break;
 				}
-			};
+			}
 			var splicedBookStack = currentUserServices[oldStack].splice(index, 1);
-			console.log('after splice: ', currentUserServices[oldStack])
+			console.log('after splice: ', currentUserServices[oldStack]);
 
 			// Remove from the currentUserBooks
 			var index2 = null;
@@ -280,7 +283,7 @@ function DragDropObject(currentUserServices, bookServices) {
 					index2 = j;
 					break;
 				}
-			};
+			}
 			var splicedBookUser = currentUserServices.currentUserBooks.splice(index2, 1);
 
 			// Remove book from user's database
@@ -319,7 +322,7 @@ function DragDropObject(currentUserServices, bookServices) {
 
 		// Update the currentUserServices stack it came from
 		var index = 0;
-		console.log('before splice: ', currentUserServices[oldStack])
+		console.log('before splice: ', currentUserServices[oldStack]);
 		for (var i = 0; i < currentUserServices[oldStack].length; i++) {
 			if(currentUserServices[oldStack][i].title === bookTitle) {
 				index = i;
@@ -327,7 +330,7 @@ function DragDropObject(currentUserServices, bookServices) {
 				currentUserServices[oldStack][i].stack = updateValue;
 				break;
 			}
-		};		
+		}
 		var splicedBook = currentUserServices[oldStack].splice(index, 1);
 		console.log('after splice: ', currentUserServices[oldStack]);
 		console.log('splicedBook', splicedBook);
@@ -476,16 +479,16 @@ bookApp.directive('uniqueUsername', ['$http', function($http) {
 				});
 			});
 		}
-  	}
+  	};
 }]);
 
 // --------------------------------------------------------------------------------------
 // Controls opening and closing of add book form
 bookApp.controller('ShowAddBookController', ['$scope', function($scope) {
 	$scope.formStatus = {
-		formOpen: false,
-	}
-}])
+		formOpen: false
+	};
+}]);
 
 // --------------------------------------------------------------------------------------
 // Add a book form functionality
@@ -501,13 +504,13 @@ bookApp.controller('AddBookController', ['$scope', 'bookServices', 'currentUserS
 	$scope.submit = function($event) {
 		$event.preventDefault();
 		if (!$scope.book.title || !$scope.book.stack) {
-			console.log('addbook form not filled out completely')
+			console.log('addbook form not filled out completely');
 			return;
 		}
 		// Set the color of the book randomlybefore 
 		$scope.book.color = bookServices.setBookColor();
 
-		console.log('book info on submit: ', $scope.book)
+		console.log('book info on submit: ', $scope.book);
 		// bookServices.addBook = line 106
 		bookServices.addBook($scope.book, function(err, newBook) {
 			console.log('new book sent back to client: ', newBook);
@@ -519,13 +522,13 @@ bookApp.controller('AddBookController', ['$scope', 'bookServices', 'currentUserS
 			var stack = newBook.stack;
 			var updateStack = '';
 			if (stack === 'current-read') {
-				updateStack = 'currentStackList'
+				updateStack = 'currentStackList';
 			}
 			if (stack === 'recent-read') {
-				updateStack = 'recentStackList'
+				updateStack = 'recentStackList';
 			}
 			if (stack === 'future-read') {
-				updateStack = 'futureStackList'
+				updateStack = 'futureStackList';
 			}
 
 			// First update list of all user's books and sort that list
@@ -578,11 +581,11 @@ bookApp.controller('RecentStackController', ['$scope', 'currentUserServices', 'd
 	// This watch lets us know that we current user's booklist has been loaded
 	// and we can set this booksList to equal it and load the books to the page
 	$scope.$watch('currentUserServices.currentUserBooks', function() {
-		console.log('$watch triggered in recentStack')
+		console.log('$watch triggered in recentStack');
 		currentUserServices.recentStackList = currentUserServices.filterByStack(currentUserServices.currentUserBooks, 'recent-read');
 		// Set the booksList here to equal same list in currentUserServices
 		$scope.recentStack.booksList = currentUserServices.recentStackList;
-	})
+	});
 
 	dragDropServices.makeDroppable('#recent-stack');
 
@@ -600,12 +603,12 @@ bookApp.controller('CurrentStackController', ['$scope', 'currentUserServices', '
 	// This watch lets us know that we current user's booklist has been loaded
 	// and we can set this booksList to equal it and load the books to the page
 	$scope.$watch('currentUserServices.currentUserBooks', function() {
-		console.log('$watch triggered in currentStack')
+		console.log('$watch triggered in currentStack');
 		// Set current stack booksList to include only currentStack books
 		currentUserServices.currentStackList = currentUserServices.filterByStack(currentUserServices.currentUserBooks, 'current-read');
 		// Set the booksList here to equal same list in currentUserServices
 		$scope.currentStack.booksList = currentUserServices.currentStackList; 
-	})
+	});
 
 	dragDropServices.makeDroppable('#current-stack');
 	
@@ -625,7 +628,7 @@ bookApp.controller('FutureStackController', ['$scope', 'currentUserServices', 'd
 	// This watch lets us know that we current user's booklist has been loaded
 	// and we can set this booksList to equal it and load the books to the page
 	$scope.$watch('currentUserServices.currentUserBooks', function() {
-		console.log('$watch triggered in futureStack')
+		console.log('$watch triggered in futureStack');
 		currentUserServices.futureStackList = currentUserServices.filterByStack(currentUserServices.currentUserBooks, 'future-read');
 		// Set the booksList here to equal same list in currentUserServices
 		$scope.futureStack.booksList = currentUserServices.futureStackList; 
@@ -636,9 +639,9 @@ bookApp.controller('FutureStackController', ['$scope', 'currentUserServices', 'd
 		// after it reloads from stackBooksList changing
 		setTimeout(function() {
 			dragDropServices.makeDraggable('.book');
-			console.log('makeDraggable called ')				
+			console.log('makeDraggable called ');				
 		}, 200);
-	})
+	});
 
 	dragDropServices.makeDroppable('#future-stack');
 	// Make trash and archive droppable
@@ -706,8 +709,8 @@ bookApp.controller('NewPostController', ['$scope', 'postServices', 'currentUserS
 							author: currentUserServices.currentUserId };
 
 		postServices.addPost(newPost, function(err, post) {
-			console.log('new post sent back from server after add to db', post)
-			postServices.allPosts.unshift(post)
+			console.log('new post sent back from server after add to db', post);
+			postServices.allPosts.unshift(post);
 		});
 		$scope.$close();
 	};
@@ -720,7 +723,7 @@ bookApp.controller('PostsDisplayController', ['$scope', '$http', 'postServices',
 	$scope.postsDisplay.allPosts = postServices.allPosts;
 
 	$scope.postsDisplay.loadPosts = function() {
-		console.log('loadPosts called')
+		console.log('loadPosts called');
 		postServices.getPosts(currentUserServices.currentUserId, function(err, posts) {
 			if(err) {
 				$scope.postsDisplay.allPosts = [];
@@ -741,9 +744,9 @@ bookApp.controller('PostsDisplayController', ['$scope', '$http', 'postServices',
 	};
 
 	$scope.$watch('currentUserServices.currentUserName', function() {
-		console.log('$watch triggered in postsDisplay')
+		console.log('$watch triggered in postsDisplay');
 		$scope.postsDisplay.loadPosts();
-	})
+	});
 }]);
 
 bookApp.controller('NewReplyController', ['$scope', '$http', 'postServices', 'currentUserServices', 
@@ -769,19 +772,19 @@ bookApp.controller('NewReplyController', ['$scope', '$http', 'postServices', 'cu
 							timestamp: new Date()
 							};
 		postServices.addReply(newReply, function(err, reply) {
-			console.log('new reply sent back from server after add to db', reply)
+			console.log('new reply sent back from server after add to db', reply);
 			// This updates postServices allPosts array
-			console.log('reply replies array ', reply.replies)
+			console.log('reply replies array ', reply.replies);
 			var postToUpdate = reply._id;
 			var i;
 			var len = postServices.allPosts.length;
 			for (i=0; i < len; i++) {
 				if (postServices.allPosts[i]._id === postToUpdate) {
-					postServices.allPosts[i].replies.push(reply.replies[reply.replies.length-1])
+					postServices.allPosts[i].replies.push(reply.replies[reply.replies.length-1]);
 					break;
 				}
 			}
-			console.log('allPosts updated on new reply add: ', postServices.allPosts)
+			console.log('allPosts updated on new reply add: ', postServices.allPosts);
 		});
 		$scope.$close();
 	};	

@@ -13,7 +13,7 @@ div.panel.panel-default.library-list(ng-controller="LibraryController")
 			td {{$index+1}}
 			td {{book.title}}
 			td {{book.author}}
-			td.library-reading(ng-if="book.stack== 'current-read'") Reading
+			td.library-reading(ng-if="book.stack == 'current-read'") Reading
 			td.library-reading-soon(ng-if="book.stack == 'future-read'") Reading Soon
 			td.library-read-recently(ng-if="book.stack == 'recent-read'") Read Recently
 			td.library-read-past(ng-if="book.stack == 'archived'") Read

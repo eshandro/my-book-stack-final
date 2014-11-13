@@ -40,27 +40,27 @@ block content
 			.col-md-5.col-md-offset-1
 				div(ng-controller="ShowAddBookController")
 					.add-book-container
-						button.button.add-book.animate-show-button(ng-click="formStatus.formOpen = true" ng-hide="formStatus.formOpen") Add a Book
-					div(ng-controller="AddBookController")
-						form.form-horizontal.add-book-form.animate-show(ng-show="formStatus.formOpen" role='form')
-							.form-group
-								label.control-label(for='book-title') Title
-								input#new-book-title.form-control(ng-model="book.title" type='text', placeholder='Book Title', required='required')
-							.form-group
-								label.control-label(for='author') Author
-								input#new-author.form-control(ng-model="book.author" type='text', placeholder='Author\'s Name')
-							.form-group
-								.radio
-									label Add a book to your reading soon stack
-										input#book-status-1(ng-model="book.stack" type='radio', name='book-status', value='future-read', required='required')
-								.radio
-									label Add a book to your currently reading stack
-										input#book-status-2(ng-model="book.stack" type='radio', name='book-status', value='current-read')
-								.radio
-									label Add a book to your recently read stack
-										input#book-status-3(ng-model="book.stack" type='radio', name='book-status', value='recent-read')
-							button.button.cancel(ng-click="cancel($event)") Cancel
-							button.button.shelf-it(ng-click="submit($event)") Shelf it!
+						button.button.add-book.animate-show-button(ng-click="formStatus.showForm()" ng-hide="formStatus.formOpen") Add a Book
+					//- div(ng-controller="AddBookController")
+					form.form-horizontal.add-book-form.animate-show(ng-controller="AddBookController", ng-show="formStatus.formOpen" role='form')
+						.form-group
+							label.control-label(for='book-title') Title
+							input#new-book-title.form-control(ng-model="book.title" type='text', placeholder='Book Title', required='required')
+						.form-group
+							label.control-label(for='author') Author
+							input#new-author.form-control(ng-model="book.author" type='text', placeholder='Author\'s Name')
+						.form-group
+							.radio
+								label Add a book to your reading soon stack
+									input#book-status-1(ng-model="book.stack" type='radio', name='book-status', value='future-read', required='required')
+							.radio
+								label Add a book to your currently reading stack
+									input#book-status-2(ng-model="book.stack" type='radio', name='book-status', value='current-read')
+							.radio
+								label Add a book to your recently read stack
+									input#book-status-3(ng-model="book.stack" type='radio', name='book-status', value='recent-read')
+						button.button.cancel(ng-click="cancel($event)") Cancel
+						button.button.shelf-it(ng-click="submit($event)") Shelf it!
 				#future-stack.stack(ng-controller="FutureStackController" )
 					ul.future-stack-holder
 						li(ng-repeat="book in futureStack.booksList | reverse")

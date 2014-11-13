@@ -512,7 +512,11 @@ bookApp.directive('uniqueUsername', ['$http', function($http) {
 // Controls opening and closing of add book form
 bookApp.controller('ShowAddBookController', ['$scope', function($scope) {
 	$scope.formStatus = {
-		formOpen: false
+		formOpen: false,
+		showForm: function() {
+			console.log('formOpen func called');
+			$scope.formStatus.formOpen = true;
+		}
 	};
 }]);
 
